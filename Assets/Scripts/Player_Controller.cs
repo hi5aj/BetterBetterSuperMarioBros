@@ -16,7 +16,7 @@ public class Player_Controller : MonoBehaviour
 
     [Header("Components")]
     public Rigidbody2D rb;
-    //public Animator animator;
+    public Animator animator;
     public LayerMask groundLayer;
     public GameObject characterHolder;
 
@@ -31,6 +31,9 @@ public class Player_Controller : MonoBehaviour
     public float groundLength = 0.6f;
     public Vector3 colliderOffset;
 
+    public RuntimeAnimatorController unarmedController;
+    public RuntimeAnimatorController gunController;
+
     // Update is called once per frame
     void Update() {
         bool wasOnGround = onGround;
@@ -43,7 +46,7 @@ public class Player_Controller : MonoBehaviour
         if(Input.GetButtonDown("Jump")){
             jumpTimer = Time.time + jumpDelay;
         }
-        //animator.SetBool("onGround", onGround);
+        animator.SetBool("onGround", onGround);
         direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
     void FixedUpdate() {
@@ -63,7 +66,8 @@ public class Player_Controller : MonoBehaviour
         if (Mathf.Abs(rb.velocity.x) > maxSpeed) {
             rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxSpeed, rb.velocity.y);
         }
-        //animator.SetFloat("horizontal", Mathf.Abs(rb.velocity.x));
+        animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
+
         //animator.SetFloat("vertical",rb.velocity.y);
     }
     void Jump(){
