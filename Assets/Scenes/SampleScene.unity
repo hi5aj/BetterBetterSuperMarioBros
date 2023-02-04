@@ -135,9 +135,9 @@ GameObject:
   - component: {fileID: 117784991}
   - component: {fileID: 117784990}
   - component: {fileID: 117784989}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Portal
-  m_TagString: Untagged
+  m_TagString: portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -173,7 +173,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.02391553, y: -0.15305832}
@@ -5891,6 +5891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d8d25fdfd4d80744b33095b21113cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  portal: {fileID: 0}
   moveSpeed: 10
   direction: {x: 0, y: 0}
   jumpSpeed: 10
@@ -6009,7 +6010,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2006037195471836063, guid: 990a79b7f2c78f2439a2515d8ad85fb1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.92
+      value: -10.63
       objectReference: {fileID: 0}
     - target: {fileID: 2006037195471836063, guid: 990a79b7f2c78f2439a2515d8ad85fb1, type: 3}
       propertyPath: m_LocalPosition.y

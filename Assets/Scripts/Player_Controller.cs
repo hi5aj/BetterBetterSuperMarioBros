@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Player_Controller : MonoBehaviour
 {
+    //public static int levelCounter;
+    public GameObject portal;
+
     [Header("Horizontal Movement")]
     public float moveSpeed = 10f;
     public Vector2 direction;
@@ -78,6 +81,13 @@ public class Player_Controller : MonoBehaviour
             animator.SetTrigger("isShooting");
             Shoot();
         }
+
+        if (Input.GetKeyDown("r"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //levelCounter = 0;
+        }
+       // if () //entering a box collider for the end of the map invokes level change.
     }
     void FixedUpdate() {
         moveCharacter(direction.x);
@@ -183,4 +193,20 @@ public class Player_Controller : MonoBehaviour
     {
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "portal")
+        {
+        Invoke("LevelChange", 2);
+        }
+    }
+
+
+    void LevelChange()
+    {
+    SceneManager.LoadScene("BetterMarioBrosS2Tilemap");
+
+        //levelCounter = 2;
+    } 
 }
