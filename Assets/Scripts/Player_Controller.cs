@@ -63,7 +63,7 @@ public class Player_Controller : MonoBehaviour
             jumpTimer = Time.time + jumpDelay;
         }
 
-        //animator.SetBool("onGround", onGround);
+        animator.SetBool("onGround", onGround);
         if (isDead == false)
         {
             direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -130,6 +130,7 @@ public class Player_Controller : MonoBehaviour
             rb.gravityScale = 0;
         }else{
             rb.gravityScale = gravity;
+            
             rb.drag = linearDrag * 0.15f;
             if(rb.velocity.y < 0){
                 rb.gravityScale = gravity * fallMultiplier;
