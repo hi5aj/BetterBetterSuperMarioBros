@@ -9,8 +9,8 @@ public class CameraFollow : MonoBehaviour{
     private Vector2 threshold;
     private Rigidbody2D rb;
     
-        [SerializeField]
-    GameObject player;
+        //[SerializeField]
+    //GameObject player;
 
     [SerializeField]
     float timeOffset;
@@ -36,7 +36,7 @@ public class CameraFollow : MonoBehaviour{
         rb = followObject.GetComponent<Rigidbody2D>();
     }
 
-    void update()
+    void FixedUpdate()
     {
 
        
@@ -57,7 +57,7 @@ public class CameraFollow : MonoBehaviour{
     }
 
     // Update is called once per frame
-    void FixedUpdate(){
+    /*void FixedUpdate(){
                 Vector3 startPos = transform.position;
 
         Vector3 endPos = player.transform.position;
@@ -74,7 +74,7 @@ public class CameraFollow : MonoBehaviour{
             transform.position.z
         );
         
-    }
+    }*/
     private Vector3 calculateThreshold(){
         Rect aspect = Camera.main.pixelRect;
         Vector2 t = new Vector2(Camera.main.orthographicSize * aspect.width / aspect.height, Camera.main.orthographicSize);

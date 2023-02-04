@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Player_Controller : MonoBehaviour
 {
     [Header("Horizontal Movement")]
@@ -31,8 +31,21 @@ public class Player_Controller : MonoBehaviour
     public float groundLength = 0.6f;
     public Vector3 colliderOffset;
 
+    // Animator switcher
     public RuntimeAnimatorController unarmedController;
     public RuntimeAnimatorController gunController;
+
+    // Invincibility frames
+    bool isInvincible;
+    float invincibleTimer;
+
+    // Gun mechanics
+    bool isGun = false;
+    public Transform firePoint;
+    public GameObject bulletPrefab;
+
+    // Death
+    bool isDead = false;
 
     // Update is called once per frame
     void Update() {
@@ -43,16 +56,34 @@ public class Player_Controller : MonoBehaviour
             StartCoroutine(JumpSqueeze(1.25f, 0.8f, 0.05f));
         }
 
-        if(Input.GetButtonDown("Jump")){
+        if(Input.GetButtonDown("Jump") && isDead == false){
             jumpTimer = Time.time + jumpDelay;
         }
-        animator.SetBool("onGround", onGround);
-        direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        //animator.SetBool("onGround", onGround);
+        if (isDead == false)
+        {
+            direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        }
+
+        if (isInvincible)
+        {
+            invincibleTimer -= Time.deltaTime;
+            if (invincibleTimer < 0)
+                isInvincible = false;
+        }
+
+        if (Input.GetButtonDown("Fire1") && isGun == true && isDead == false)
+        {
+            animator.SetTrigger("isShooting");
+            Shoot();
+        }
     }
     void FixedUpdate() {
         moveCharacter(direction.x);
         if(jumpTimer > Time.time && onGround){
             Jump();
+            //onGround = false;
         }
 
         modifyPhysics();
@@ -66,15 +97,16 @@ public class Player_Controller : MonoBehaviour
         if (Mathf.Abs(rb.velocity.x) > maxSpeed) {
             rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * maxSpeed, rb.velocity.y);
         }
-        animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
-
-        //animator.SetFloat("vertical",rb.velocity.y);
+        animator.SetFloat("horizontal", Mathf.Abs(rb.velocity.x));
+        animator.SetFloat("vertical",rb.velocity.y);
     }
     void Jump(){
         rb.velocity = new Vector2(rb.velocity.x, 0);
+        rb.velocity = new Vector2(rb.velocity.y, 0);
         rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
         jumpTimer = 0;
-        StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
+        animator.SetTrigger("Jump");
+        //StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
     }
     void modifyPhysics() {
         bool changingDirections = (direction.x > 0 && rb.velocity.x < 0) || (direction.x < 0 && rb.velocity.x > 0);
@@ -121,5 +153,34 @@ public class Player_Controller : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position + colliderOffset, transform.position + colliderOffset + Vector3.down * groundLength);
         Gizmos.DrawLine(transform.position - colliderOffset, transform.position - colliderOffset + Vector3.down * groundLength);
+    }
+
+    public void PickupGun()
+    {
+        isGun = true;
+        animator.runtimeAnimatorController = gunController as RuntimeAnimatorController;
+    }
+
+    public void Damage()
+    {
+        if (isGun == false)
+        {
+            Die();
+        }
+        else
+        {
+            animator.runtimeAnimatorController = unarmedController as RuntimeAnimatorController;
+        }
+    }
+
+    void Die()
+    {
+        isDead = true;
+        animator.SetTrigger("isDead");
+    }
+
+    void Shoot()
+    {
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
     }
 }
