@@ -6,9 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/StartMenu.unity
+    guid: f27fdeb008d5a3a489b8fc1ae6e0a0f3
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/BetterMarioBrosS2Tilemap.unity
     guid: 6f05a78132520314ea5aabefa4f9376b
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 3da309f100e9f4948a56fb6a9f038551
+  - enabled: 1
+    path: Assets/Scenes/WinScreen.unity
+    guid: 961d5541bfcd2f14b8a3c16d81bb8930
   m_configObjects: {}
