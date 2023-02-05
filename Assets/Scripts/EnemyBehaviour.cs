@@ -36,7 +36,10 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        transform.localScale = new Vector2(-(Mathf.Sign(rb.velocity.x)), transform.localScale.y);
+        if (!collider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        {
+            transform.localScale = new Vector2(-(Mathf.Sign(rb.velocity.x)), transform.localScale.y);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

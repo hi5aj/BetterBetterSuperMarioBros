@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public AudioSource audiosource;
+    public AudioClip enemyDeathClip;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,7 @@ public class Enemy : MonoBehaviour
 
     public void KillEnemy()
     {
+        audiosource.PlayOneShot(enemyDeathClip);
         Destroy(gameObject);
     }
 }
