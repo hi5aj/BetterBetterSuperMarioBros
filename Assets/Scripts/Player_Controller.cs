@@ -188,6 +188,7 @@ public class Player_Controller : MonoBehaviour
     {
         isDead = true;
         animator.SetTrigger("isDead");
+        GameOver();
     }
 
     void Shoot()
@@ -206,8 +207,14 @@ public class Player_Controller : MonoBehaviour
 
     void LevelChange()
     {
-    SceneManager.LoadScene("BetterMarioBrosS2Tilemap");
+
+        SceneManager.LoadScene("BetterMarioBrosS2Tilemap");
 
         //levelCounter = 2;
     } 
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene("GameOver");
+    }
 }
