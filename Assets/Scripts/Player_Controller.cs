@@ -47,6 +47,14 @@ public class Player_Controller : MonoBehaviour
     public Transform firePoint;
     public GameObject bulletPrefab;
 
+    // Player audio
+    public AudioSource audiosource;
+    public AudioClip jumpClip;
+    public AudioClip shootClip;
+    public AudioClip hurtClip;
+    public AudioClip pickUpClip;
+    
+
     // Death
     bool isDead = false;
 
@@ -55,11 +63,11 @@ public class Player_Controller : MonoBehaviour
         bool wasOnGround = onGround;
         onGround = Physics2D.Raycast(transform.position + colliderOffset, Vector2.down, groundLength, groundLayer) || Physics2D.Raycast(transform.position - colliderOffset, Vector2.down, groundLength, groundLayer);
 
-        if(!wasOnGround && onGround){
+        if (!wasOnGround && onGround) {
             StartCoroutine(JumpSqueeze(1.25f, 0.8f, 0.05f));
         }
 
-        if(Input.GetButtonDown("Jump") && isDead == false){
+        if (Input.GetButtonDown("Jump") && isDead == false) {
             jumpTimer = Time.time + jumpDelay;
         }
 
@@ -76,7 +84,7 @@ public class Player_Controller : MonoBehaviour
                 isInvincible = false;
         }
 
-        if (Input.GetButtonDown("Fire1") && isGun == true && isDead == false)
+        if (Input.GetButtonDown("Fire1") && isGun == true && isDead == false || Input.GetKeyDown(KeyCode.Z) && isGun == true && isDead == false)
         {
             animator.SetTrigger("isShooting");
             Shoot();
@@ -116,6 +124,7 @@ public class Player_Controller : MonoBehaviour
         rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
         jumpTimer = 0;
         animator.SetTrigger("Jump");
+        audiosource.PlayOneShot(jumpClip);
         //StartCoroutine(JumpSqueeze(0.5f, 1.2f, 0.1f));
     }
     void modifyPhysics() {
@@ -170,6 +179,7 @@ public class Player_Controller : MonoBehaviour
     {
         isGun = true;
         animator.runtimeAnimatorController = gunController as RuntimeAnimatorController;
+        audiosource.PlayOneShot(pickUpClip);
     }
 
     public void Damage()
@@ -180,6 +190,8 @@ public class Player_Controller : MonoBehaviour
         }
         else
         {
+            isGun = false;
+            audiosource.PlayOneShot(hurtClip);
             animator.runtimeAnimatorController = unarmedController as RuntimeAnimatorController;
         }
     }
@@ -193,6 +205,7 @@ public class Player_Controller : MonoBehaviour
 
     void Shoot()
     {
+        audiosource.PlayOneShot(shootClip);
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
     }
 
