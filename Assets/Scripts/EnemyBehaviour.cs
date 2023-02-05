@@ -39,6 +39,8 @@ public class EnemyBehaviour : MonoBehaviour
         if (!collider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             transform.localScale = new Vector2(-(Mathf.Sign(rb.velocity.x)), transform.localScale.y);
+            //transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+
         }
     }
 
@@ -47,6 +49,8 @@ public class EnemyBehaviour : MonoBehaviour
         if (collider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             transform.localScale = new Vector2(-(Mathf.Sign(rb.velocity.x)), transform.localScale.y);
+            //transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
+
         }
     }
 
