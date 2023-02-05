@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 9087517304993398115}
   - component: {fileID: 9087517304993398114}
-  - component: {fileID: 9087517304993398113}
   - component: {fileID: 9087517304993398112}
   - component: {fileID: 9087517304993398143}
   - component: {fileID: 2836706537936925307}
+  - component: {fileID: 6479183452842187407}
   m_Layer: 0
   m_Name: Follow Enemy
   m_TagString: Untagged
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 787644579, guid: 4226c44f27936674ea05fafec3dce295, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -88,34 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!68 &9087517304993398113
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9087517304993398142}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.016602993, y: 0.36851406}
-  - {x: -0.18957949, y: 0.4252149}
-  - {x: -0.46568394, y: 0.36211884}
-  - {x: -0.46002388, y: -0.3822083}
-  - {x: 0.4054582, y: -0.39271522}
-  - {x: 0.36056304, y: 0.43375778}
-  - {x: 0.16337061, y: 0.4456582}
-  - {x: 0.02585888, y: 0.3703686}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!50 &9087517304993398112
 Rigidbody2D:
   serializedVersion: 4
@@ -149,9 +121,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0aba1d1edf0b9843b4e608c7f88ad17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  target: {fileID: 0}
   moveSpeed: 2
-  Drone: {fileID: 9087517304993398142}
+  facingRight: 1
+  FlyingEnemy: {fileID: 9087517304993398142}
+  audiosource: {fileID: 0}
+  enemyDeathClip: {fileID: 0}
 --- !u!95 &2836706537936925307
 Animator:
   serializedVersion: 5
@@ -172,3 +147,29 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!61 &6479183452842187407
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9087517304993398142}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.031698227, y: 0.038038015}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.77177143, y: 0.8351686}
+  m_EdgeRadius: 0

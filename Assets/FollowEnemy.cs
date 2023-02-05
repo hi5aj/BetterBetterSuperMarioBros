@@ -4,43 +4,37 @@ using UnityEngine;
 
 public class FollowEnemy : MonoBehaviour
 {   
-    public Transform player;
+    public Transform target;
     public float moveSpeed = 2f;
     private Rigidbody2D rb;
     private Vector2 movement;
-    private SpriteRenderer mySpriteRenderer;
     Animator animator;
     bool alive = true;
 
+    public bool facingRight = true;
+
     float activationDistance = 5f;
-    public GameObject Drone;
+    public GameObject FlyingEnemy;
 
-    //public int hitCount;
 
-    AudioSource audioSource;
-    //public GameObject dogbark;
-    //public AudioClip dogyelp;
-
+    public AudioSource audiosource;
+    public AudioClip enemyDeathClip;
 
 
     // Start is called before the first frame update
-    //void Awake()
-    //{
-        //rb = this.GetComponent<Rigidbody2D>();
-        //animator = GetComponent<Animator>();
-       // SpriteRenderer mySpriteRenderer = GetComponent<SpriteRenderer>();
-        //animator.SetTrigger("Idle");
-        //audioSource = GetComponent<AudioSource>();
-        //dogbark.SetActive(false);
-        
+    void Awake()
+    {
+        rb = this.GetComponent<Rigidbody2D>();
 
-    //}
+        audiosource = GetComponent<AudioSource>();
+
+    }
 
     // Update is called once per frame
     void Update()
     {
         
-        Vector3 direction = player.position - transform.position;
+        Vector3 direction = target.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         direction.Normalize();
         movement = direction;
@@ -59,40 +53,10 @@ public class FollowEnemy : MonoBehaviour
 
             }
 
-        
-        //if (player.GetComponent<Player_Controller>().currentHealth == 0)
-        //{
-        //    GetComponent<Rigidbody2D>().simulated = false;
-        //    animator.SetTrigger("Idle");
-        //    dogbark.SetActive(false);
-        //}
             
     }
-    private void FixedUpdate() 
-    {
 
-        moveCharacter(movement);
-        
-    }
-    void moveCharacter(Vector2 direction)
-    {
-        if ((Drone.transform.position - player.transform.position).magnitude < activationDistance && alive == true)
-        {
-        rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime));
-        //animator.SetTrigger("Idle");
-
-        //dogbark.SetActive(true);
-
-        }
-        else if ((Drone.transform.position - player.transform.position).magnitude > activationDistance)
-        {
-            //animator.SetTrigger("Idle");        
-            //dogbark.SetActive(false);        
-        }
-
-
-    }
-
+    
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -103,9 +67,42 @@ public class FollowEnemy : MonoBehaviour
             player.Damage();
         }
     }
-    
+
+    private void FixedUpdate() 
+    {
+
+        moveCharacter(movement);
+
+                float h = Input.GetAxis("Horizontal");
+        if(h > 0 && !facingRight)
+            Flip();
+        else if(h < 0 && facingRight)
+            Flip();
+        
+    }
+    void moveCharacter(Vector2 direction)
+    {
+        if ((FlyingEnemy.transform.position - target.transform.position).magnitude < activationDistance && alive == true)
+        {
+        rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime));
+
+
+        }
+       
+    }
+
     public void KillEnemy()
     {
+        audiosource.PlayOneShot(enemyDeathClip);
         Destroy(gameObject);
+        alive = false;
+    }
+
+    void Flip ()
+    {
+        facingRight = !facingRight;
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 }
