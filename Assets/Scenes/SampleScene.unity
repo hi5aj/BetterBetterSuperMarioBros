@@ -9294,6 +9294,18 @@ PrefabInstance:
       propertyPath: rb
       value: 
       objectReference: {fileID: 2076414378}
+    - target: {fileID: 932613799, guid: 990a79b7f2c78f2439a2515d8ad85fb1, type: 3}
+      propertyPath: m_Size.y
+      value: 1.0823169
+      objectReference: {fileID: 0}
+    - target: {fileID: 932613799, guid: 990a79b7f2c78f2439a2515d8ad85fb1, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.041157246
+      objectReference: {fileID: 0}
+    - target: {fileID: 932613799, guid: 990a79b7f2c78f2439a2515d8ad85fb1, type: 3}
+      propertyPath: m_Offset.y
+      value: -4.7383413
+      objectReference: {fileID: 0}
     - target: {fileID: 2076414366, guid: 990a79b7f2c78f2439a2515d8ad85fb1, type: 3}
       propertyPath: rb
       value: 
