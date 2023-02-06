@@ -95,6 +95,12 @@ public class Player_Controller : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             //levelCounter = 0;
         }
+
+         if (Input.GetKeyDown("escape"))
+        {
+            Application.Quit();
+        
+        }
        // if () //entering a box collider for the end of the map invokes level change.
     }
     void FixedUpdate() {
@@ -220,9 +226,11 @@ public class Player_Controller : MonoBehaviour
 
     void LevelChange()
     {
-
+        
         SceneManager.LoadScene("BetterMarioBrosS2Tilemap");
-
+        
+     
+        
         //levelCounter = 2;
     } 
 
