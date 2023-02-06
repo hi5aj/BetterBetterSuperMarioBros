@@ -38,31 +38,31 @@ private bool IsFacingRight()
         return transform.localScale.x > Mathf.Epsilon;
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (!collider.IsTouchingLayers(LayerMask.GetMask("Ground")))
-        {
-            transform.localScale = new Vector2(-(Mathf.Sign(rb.velocity.x)), transform.localScale.y);
-        }
-    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+        //if (!collider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        //{
+          //  transform.localScale = new Vector2(-(Mathf.Sign(rb.velocity.x)), transform.localScale.y);
+        //}
+   // }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collider.IsTouchingLayers(LayerMask.GetMask("Ground")))
-        {
-            transform.localScale = new Vector2(-(Mathf.Sign(rb.velocity.x)), transform.localScale.y);
-        }
-    }
+   // private void OnTriggerEnter2D(Collider2D collision)
+    //{
+       // if (collider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+       // {
+       //     transform.localScale = new Vector2(-(Mathf.Sign(rb.velocity.x)), transform.localScale.y);
+       // }
+   // }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        Player_Controller player = other.gameObject.GetComponent<Player_Controller>();
+   // private void OnCollisionEnter2D(Collision2D other)
+    //{
+       // Player_Controller player = other.gameObject.GetComponent<Player_Controller>();
 
-        if (player != null)
-        {
-            player.Damage();
-        }
-    }
+       // if (player != null)
+       // {
+        //    player.Damage();
+        //}
+   // }
 
     public void KillEnemy()
     {
